@@ -2,3 +2,7 @@
 Hacker rank exercises
 
 mean_median_mode.py goes through simple statistic processes, mean, median and mode
+
+weighted man exercise added
+
+nothing done today
