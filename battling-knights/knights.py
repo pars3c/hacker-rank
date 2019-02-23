@@ -53,45 +53,8 @@ If knight moves onto a tile with 2 items: Equip only the best one in the followi
 
 
 import numpy as np
-
-
-class Arena:
-
-  def __init__(self, row_size, col_size, fill):
-    self.arena = np.full((row_size, col_size), fill)
-
-  def add_knight(self, name, start_row, start_col):
-    self.arena[start_row, start_col] = name
-
-  
-  def __str__(self):
-    return str(self.arena)
-
-  def add_item(self, name, row, col, attack, defence):
-    pass
-
-
-
-class Knight:
-  
-  base_attack = 1
-  base_defense = 1
-
-  def __init__(self, name, start_row, start_col):
-
-    self.name = name
-    self.start_row = start_row
-    self.start_col = start_col
-    
-  def get_name(self):
-    return self.name
-
-  def set_current_position(self, current_row, current_col):
-    self.current_row = current_row
-    self.current_col = current_col
-
-  def get_starting_position(self):
-    return self.start_row, self.start_col
+from classes.arena import Arena
+from classes.knight import Knight
 
 
 
@@ -115,5 +78,43 @@ for knight in knights:
   starting_row, starting_col = knight.get_starting_position()
   arena.add_knight(knight.get_name(), starting_row, starting_col)
 
+for item in items:
+  starting_row, starting_col = knight.get_starting_position()
+  arena.add_knight(knight.get_name(), starting_row, starting_col)
 
-print(arena)
+def moving_arena_board():
+  print(arena)
+  f = open("moves.txt", "r")
+  for x in f:
+    if "START" in x:
+      continue
+    elif "END" in x:
+      break
+    else:
+
+      
+      knight_name = x.split(":")[0]
+      print(knight_name)
+      direction = x.split(":")[1]
+      row, col = arena.get_knight_position(knight_name)
+      print(row, col)
+      
+      if "S" in direction:
+        arena.moving_knight(knight_name, row, row+1, col, col, '|_|')
+        print(arena)
+      elif "N" in direction:
+        arena.moving_knight(knight_name, row, row-1, col, col, '|_|')
+        print(arena)
+      elif "E" in direction:
+        arena.moving_knight(knight_name, row, row, col, col+1, '|_|')
+        print(arena)
+      elif "W" in direction:
+        arena.moving_knight(knight_name, row, row, col, col-1, '|_|')
+        print(arena)
+
+
+
+moving_arena_board()
+
+
+
