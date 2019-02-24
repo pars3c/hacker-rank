@@ -55,7 +55,7 @@ If knight moves onto a tile with 2 items: Equip only the best one in the followi
 import numpy as np
 from classes.arena import Arena
 from classes.knight import Knight
-
+from classes.items import Item
 
 
 R = Knight('R', 0, 0)
@@ -63,41 +63,42 @@ B = Knight('B', 7, 0)
 G = Knight('G', 7, 7)
 Y = Knight('Y', 0, 7)
 
-# Name, Attack, Defence, Importance
-A = ['A', 2, 0, 1]
-D = ['D', 1, 0, 2]
-H = ['H', 0, 1, 3]
-M = ['M', 1, 1, 4]
+# Name, Starting Row, Starting Col, Attack, Defence, Importance
+A = Item('A', 2, 2, 2, 0, 1)
+D = Item('D', 2, 5, 1, 0, 2)
+H = Item('H', 5, 2, 0, 1, 3)
+M = Item('M', 5, 5, 1, 1, 4)
 
 knights = [R, B, G, Y] 
 items = [A, D, H, M]
 
 arena = Arena(8, 8, '|_|')
 
-for knight in knights:
-  starting_row, starting_col = knight.get_starting_position()
-  arena.add_knight(knight.get_name(), starting_row, starting_col)
+def set_starting_board():
+  for knight in knights:
+    starting_row, starting_col = knight.get_starting_position()
+    arena.add_knight(knight.get_name(), starting_row, starting_col)
 
-for item in items:
-  starting_row, starting_col = knight.get_starting_position()
-  arena.add_knight(knight.get_name(), starting_row, starting_col)
+  for item in items:
+    starting_row, starting_col = item.get_starting_position()
+    arena.add_item(item.get_name(), starting_row, starting_col)
 
 def moving_arena_board():
   print(arena)
   f = open("moves.txt", "r")
-  for x in f:
-    if "START" in x:
+  for i, x in enumerate(f):
+    if "GAME-START" in x:
       continue
-    elif "END" in x:
+    elif "GAME-END" in x:
       break
     else:
-
+      print("Iteration: ", i)
       
       knight_name = x.split(":")[0]
-      print(knight_name)
+      #print(knight_name)
       direction = x.split(":")[1]
       row, col = arena.get_knight_position(knight_name)
-      print(row, col)
+      #print(row, col)
       
       if "S" in direction:
         arena.moving_knight(knight_name, row, row+1, col, col, '|_|')
@@ -113,7 +114,7 @@ def moving_arena_board():
         print(arena)
 
 
-
+set_starting_board()
 moving_arena_board()
 
 
