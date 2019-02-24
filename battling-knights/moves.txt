@@ -1,4 +1,5 @@
 GAME-START
+G:E
 R:S
 R:S
 R:S
@@ -7,4 +8,8 @@ Y:S
 Y:S
 Y:W
 Y:W
+B:N
+B:N
+B:N
+B:N
 GAME-END
