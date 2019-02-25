@@ -57,7 +57,8 @@ class Arena(Knight):
     #print("Name:", name, "Current row:", current_row, "Next row:", next_row)
     
     if self.arena[next_row, next_col] in self.knights:
-      """ If this knight is dead or drowned skip command on moves.txt """
+      # TODO What's in the string below
+      """ If knight on the next tile add both knights and add attack stats to attacker """
       # TODO if knight in the next tile and there is no item: fight him
       self.arena[next_row, next_col] = np.core.defchararray.add(self.arena[next_row, next_col], name)
       self.arena[current_row, current_col] = fill_previous
